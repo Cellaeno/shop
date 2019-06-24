@@ -7,13 +7,13 @@
 
 <div class="i_bg bg_color">
     <!--Begin 用户中心 Begin -->
-	<div class="m_content">
+  <div class="m_content">
 
-   		<!-- 用户中心 左侧栏开始 -->
+      <!-- 用户中心 左侧栏开始 -->
         @include('home.public.user_sideboard')
         <!-- 用户中心 右侧栏开始 -->
 
-		<div class="m_right">
+    <div class="m_right">
             <p></p>
             <div class="mem_tit">账户安全</div>
             <div class="m_des">
@@ -75,18 +75,10 @@
                   </tr>
                 </table>
                 </form>
-            </div>
-
-
-
-
-
-
-
-            
+            </div> 
         </div>
     </div>
-	<!--End 用户中心 End--> 
+  <!--End 用户中心 End--> 
     
     <!--Begin 底部 开始 -->
     @include('home.public.footer')

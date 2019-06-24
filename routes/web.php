@@ -102,27 +102,34 @@
 
 // 网站首页
 Route::get('/', 'Home\IndexController@index');
-
-
 // 显示 前台 主页面
 Route::resource('index','Home\IndexController');
 
 
-// 个人中心
+// 个人中心 用户信息
 
-// 修改 用户 个人 基本信息
+// 显示 修改用户个人基本信息 页面
 Route::get('/home/users/elementInfo','Home\UsersController@elementInfo');
-// 修改 用户 个人 基本信息
-Route::post('/home/users/saveInfo','Home\UsersController@saveInfo');
+// 保存 修改用户个人基本信息
+Route::post('/home/users/saveInfo/{id}/{token}','Home\UsersController@saveInfo');
+// 保存 修改用户头像
+Route::post('/home/users/saveFace/{id}','Home\UsersController@saveFace');
+// 前台 用户中心 激活邮箱
+Route::get('/home/users/email/{id}/{token}','Home\UsersController@email');
 // 显示 前台 用户中心 主页面
 Route::resource('users','Home\UsersController');
 
 // 显示 前台 用户中心 我的订单页面
 Route::resource('order','Home\OrderController');
+
 // 显示 前台 用户中心 地址管理页面
+// 修改默认地址
+Route::post('/address/{id}','Home\AddressController@changeStatus');
 Route::resource('address','Home\AddressController');
+
 // 显示 前台 用户中心 我的收藏 页面
 Route::resource('collect','Home\CollectController');
+
 // 显示 前台 用户中心 个人评论 主页面
 Route::resource('discuss','Home\DiscussController');
 
@@ -157,8 +164,10 @@ Route::resource('buycar','Home\BuycarController');
 
 // 显示 前台 特卖场 主页面
 Route::resource('salelimit','Home\SalelimitController');
+
 // 显示 前台 活动 主页面
 Route::resource('active','Home\ActiveController');
+
 // 显示 前台 品牌 列表页面
 Route::resource('brand','Home\BrandController');
 
