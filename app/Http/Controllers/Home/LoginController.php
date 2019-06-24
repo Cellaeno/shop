@@ -58,7 +58,8 @@ class LoginController extends Controller
     {
         session(['home_flag'=>'','home_userInfo'=>'']);
         // dump(session('home_flag'));
-        echo json_encode(['msg'=>'success','info'=>'退出成功','url'=>$_SERVER['HTTP_REFERER']]);
+        // echo json_encode(['msg'=>'success','info'=>'退出成功','url'=>$_SERVER['HTTP_REFERER']]);
+        echo json_encode(['msg'=>'success','info'=>'退出成功']);
     }
 
 

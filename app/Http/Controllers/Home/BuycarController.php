@@ -35,7 +35,7 @@ class BuycarController extends Controller
         // // 未登录用户计算 加入购物车的 商品总数
         // $countCar = self::countCar();
         // dump($countCar);
-        if (!empty(session('home_userInfo'))) {
+        if (session('home_flag') == true) {
             // 登录用户 进入购物车
             $uid = session('home_userInfo')->id;
             $datas = Cars::where('uid',$uid)->get();

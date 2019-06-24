@@ -7,7 +7,7 @@ function logout(obj) {
 
     $.get('/home/login/logout', function(res) {
         if (res.msg == 'success') {
-            location.href= res.url;
+            location.href= '/';
         }
     },'json');
 }
