@@ -78,11 +78,7 @@
                   </tr>
                 </table>
                 </form>
-<<<<<<< HEAD
             </div>
-=======
-            </div> 
->>>>>>> origin/ZFY
         </div>
     </div>
   <!--End 用户中心 End--> 

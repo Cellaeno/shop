@@ -98,7 +98,6 @@ Route::group(['middleware'=>['admin_login','admin_nodes']],function(){
 
 
 
-
 // 前台
 
 // 网站首页
@@ -117,15 +116,13 @@ Route::post('/home/users/saveInfo/{id}/{token}','Home\UsersController@saveInfo')
 Route::post('/home/users/saveFace/{id}','Home\UsersController@saveFace');
 // 前台 用户中心 激活邮箱
 Route::get('/home/users/email/{id}/{token}','Home\UsersController@email');
-<<<<<<< HEAD
 // 前台 修改密码
 Route::post('/home/users/updateUpwd','Home\UsersController@updateUpwd');
 // 前台 修改手机
 Route::post('/home/users/updatePhone','Home\UsersController@updatePhone');
 // 前台 修改邮箱
 Route::post('/home/users/updateEmail','Home\UsersController@updateEmail');
-=======
->>>>>>> origin/ZFY
+
 // 显示 前台 用户中心 主页面
 Route::resource('users','Home\UsersController');
 

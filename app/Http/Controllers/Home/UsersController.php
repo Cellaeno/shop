@@ -64,7 +64,7 @@ class UsersController extends Controller
             echo json_encode(['msg'=>'danger','info'=>'非法操作,请重新进入修改页面']);
             exit;
         }
-		
+
         $user->uname = $uname;
         $user->token = str_random(50);
         $res1 = $user->save();
@@ -89,8 +89,10 @@ class UsersController extends Controller
         $userinfos->qq = $qq;
         $res2 = $userinfos->save();
 
+
         // 手动操作事务 [ 两个表都插入数据成功 ]
         DB::beginTransaction();
+
         if($res1 && $res2){
             DB::commit();
             echo json_encode(['msg'=>'success','info'=>'修改成功']);
@@ -102,6 +104,7 @@ class UsersController extends Controller
             exit;
         }
     }
+
 
     /**
      * 保存修改头像信息
