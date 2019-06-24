@@ -6,19 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Goods extends Model
 {
+    // 设置表名
     public $table = 'goods';
-    
 
-    // 属于 (对应 二级栏目)
-    public function goodscate_two()
-    {
-    	return $this->belongsTo('App\Models\Cates','cate_twoid');
-
-    }
-
-    // 属于 (对应 三级栏目)
-    public function goodscate_three()
-    {
-        return $this->belongsTo('App\Models\Cates','cate_id');
-    }
+    // 配置和商品详情表的一对多关系
+    // public function usersinfos()
+	// {
+    	// return $this->hasOne('App\Models\UsersIntos','uid');
+	// }
 }
