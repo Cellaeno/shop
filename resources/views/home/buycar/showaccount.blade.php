@@ -29,51 +29,30 @@
     <div class="content mar_20">
     	<div class="two_bg">
         	<div class="two_t">
-            	<span class="fr"><a href="#">修改</a></span>商品列表
+            	<span class="fr"></span>商品列表
             </div>
             <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="car_th" width="550">商品名称</td>
                 <td class="car_th" width="140">属性</td>
                 <td class="car_th" width="150">购买数量</td>
+                <td class="car_th" width="130">单价</td>
                 <td class="car_th" width="130">小计</td>
-                <td class="car_th" width="140">返还积分</td>
+                <td class="car_th" width="140">操作</td>
               </tr>
+              @foreach($data_order as $k=>$v)
               <tr>
                 <td>
-                    <div class="c_s_img"><img src="/home/images/c_1.jpg" width="73" height="73" /></div>
-                    Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
+                    <div class="c_s_img"><img src="{{ $v->car_goods->pic }}" width="73" height="73" /></div>
+                    {{ $v->car_goods->title }}
                 </td>
                 <td align="center">颜色：灰色</td>
-                <td align="center">1</td>
-                <td align="center" style="color:#ff4e00;">￥620.00</td>
-                <td align="center">26R</td>
+                <td align="center">{{ $v->num }}</td>
+                <td align="center" style="color:#ff4e00;">￥{{ $v->car_goods->price }}</td>
+                <td align="center">{{ $v->xiaoji}}</td>
+                <td align="center"><a onclick="remove({{ $v->id }})">删除</a></td>
               </tr>
-              <tr class="car_tr">
-                <td>
-                    <div class="c_s_img"><img src="/home/images/c_2.jpg" width="73" height="73" /></div>
-                    Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-                </td>
-                <td align="center">颜色：灰色</td>
-                <td align="center">1</td>
-                <td align="center" style="color:#ff4e00;">￥620.00</td>
-                <td align="center">26R</td>
-              </tr>
-              <tr>
-                <td>
-                    <div class="c_s_img"><img src="/home/images/c_3.jpg" width="73" height="73" /></div>
-                    Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-                </td>
-                <td align="center">颜色：灰色</td>
-                <td align="center">1</td>
-                <td align="center" style="color:#ff4e00;">￥620.00</td>
-                <td align="center">26R</td>
-              </tr>
-              <tr>
-                <td colspan="5" align="right" style="font-family:'Microsoft YaHei';">
-                    商品总价：￥1899.00 ； 返还积分 56R  
-                </td>
-              </tr>
+              @endforeach
             </table>
             
             <div class="two_t">
@@ -106,50 +85,6 @@
               </tr>
             </table>
 
-            
-            <div class="two_t">
-            	配送方式
-            </div>
-            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="car_th" width="80"></td>
-                <td class="car_th" width="200">名称</td>
-                <td class="car_th" width="370">订购描述</td>
-                <td class="car_th" width="150">费用</td>
-                <td class="car_th" width="135">免费额度</td>
-                <td class="car_th" width="175">保价费用</td>
-              </tr>
-              <tr>
-              	<td align="center"><input type="checkbox" name="ch" checked="checked" /></td>
-                <td align="center" style="font-size:14px;"><b>申通快递</b></td>
-                <td>江、浙、沪地区首重为15元/KG，其他地区18元/KG，续重均为5-6元/KG， 云南地区为8元</td>
-                <td align="center">￥15.00</td>
-                <td align="center">￥0.00</td>
-                <td align="center">不支持保价</td>
-              </tr>
-              <tr>
-              	<td align="center"><input type="checkbox" name="ch" /></td>
-                <td align="center" style="font-size:14px;"><b>城际快递</b></td>
-                <td>运费固定</td>
-                <td align="center">￥15.00</td>
-                <td align="center">￥0.00</td>
-                <td align="center">不支持保价</td>
-              </tr>
-              <tr>
-              	<td align="center"><input type="checkbox" name="ch" /></td>
-                <td align="center" style="font-size:14px;"><b>邮局平邮</b></td>
-                <td>运费固定</td>
-                <td align="center">￥15.00</td>
-                <td align="center">￥0.00</td>
-                <td align="center">不支持保价</td>
-              </tr>
-              <tr>
-              	<td colspan="6">
-                	<span class="fr"><label class="r_rad"><input type="checkbox" name="baojia" /></label><label class="r_txt">配送是否需要保价</label></span>
-                </td>
-              </tr>
-            </table> 
-            
             <div class="two_t">
             	支付方式
             </div>
@@ -160,15 +95,9 @@
             </ul>
             
             <table border="0" style="width:900px; margin-top:20px;" cellspacing="0" cellpadding="0">
-              <tr>
-                <td align="right">
-                	该订单完成后，您将获得 <font color="#ff4e00">1815</font> 积分 ，以及价值 <font color="#ff4e00">￥0.00</font> 的红包 <br />
-                    商品总价: <font color="#ff4e00">￥1815.00</font>  + 配送费用: <font color="#ff4e00">￥15.00</font>
-                </td>
-              </tr>
               <tr height="70" style="margin-right: -100px">
                 <td align="right">
-                	<b style="font-size:14px;">应付款金额：<span style="font-size:22px; color:#ff4e00;">￥2899</span></b>
+                	<b style="font-size:14px;">应付款金额：<span style="font-size:22px; color:#ff4e00;">￥{{ $Count }}</span></b>
                 </td>
               </tr>
               <tr height="70">
@@ -193,6 +122,20 @@
 </div>
 
 </body>
+<script type="text/javascript">
+  function remove(id){
+    alert("真的要删除吗?");
+    $.get('/home/buycar/remove',{id:id},function(res){
+      // 提示信息
+      if (res.msg == 'success') {
+          //删除成功
+          alert(res.info);
+          //跳转
+          location.reload();
+      }
+    },'json');
+  }
+</script>
 
 
 <!--[if IE 6]>

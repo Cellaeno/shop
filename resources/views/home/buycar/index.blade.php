@@ -46,25 +46,25 @@
             <td align="center">颜色：灰色</td>
             <td align="center">
             	<div class="c_num">
-                    <a href="/home/buycar"><input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" /></a>
+                    <a href="javascript:;"><input type="button" value="" onclick="descOne({{$v->car_goods->id}})" class="car_btn_1" /></a>
                 	<input type="text" value="{{ $v->num }}" name="" class="car_ipt" />  
-                    <a href="/home/buycar"><input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" /></a>
+                    <a href="javascript:;"><input type="button" value="" onclick="addOne({{$v->car_goods->id}})" class="car_btn_2" /></a>
                 </div>
             </td>
             <td align="center" style="color:#ff4e00;">￥{{ $v->car_goods->price }}</td>
             <td align="center" style="color:#ff4e00;">￥{{ $v->xiaoji }}</td>
-            <td align="center"><a onclick="ShowDiv('MyDiv','fade')">删除</a>&nbsp; &nbsp;<a href="/collect">加入收藏</a></td>
+            <td align="center"><a onclick="efg({{ $v->id }})">删除</a>&nbsp; &nbsp;<a href="/collect/create?gid={{ $v->gid }}">加入收藏</a></td>
           </tr>
           @endforeach
           <tr height="70">
             <td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
                 <label class="r_rad"><input type="checkbox" name="clear" checked="checked" /></label><label class="r_txt">清空购物车</label>
-                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;">￥2899</b></span>
+                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;">￥{{ $Count }}</b></span>
             </td>
           </tr>
           <tr valign="top" height="150">
             <td colspan="6" align="right">
-                <a href="#"><img src="/home/images/buy1.gif" /></a>&nbsp; &nbsp; <a href="/buycar/{id}/edit"><img src="/home/images/buy2.gif" /></a>
+                <a href="/list"><img src="/home/images/buy1.gif" /></a>&nbsp; &nbsp; <a href="/buycar/{{ session('home_userInfo')->id }}/edit"><img src="/home/images/buy2.gif" /></a>
             </td>
           </tr>
           @else
@@ -120,7 +120,11 @@
                     <td>您确定要把该商品移除购物车吗？</td>
                   </tr>
                   <tr height="50" valign="bottom">
+                    @if(session('home_flag') == true)
+                    <td><a href="javascript:;" class="b_sure" onclick="des(this)">确定</a><a href="#" class="b_buy">取消</a></td>
+                    @else
                     <td><a href="javascript:;" class="b_sure" onclick="del(this)">确定</a><a href="#" class="b_buy">取消</a></td>
+                    @endif
                   </tr>
                 </table>
                     
@@ -145,8 +149,8 @@
         $.get('/home/buycar/del',{id:id},function(res){
             // 提示信息
             if (res.msg == 'success') {
-                //删除成功
-                // alert(res.info);
+                // 删除成功
+                alert(res.info);
                 //跳转
                 location.reload();
             }
@@ -156,6 +160,44 @@
     function abc(id){
         ShowDiv('MyDiv','fade');
         $('#cur_id').val(id)
+    }
+
+    function descOne(id){
+        $.get('home/buycar/descOne',{id:id},function(res){
+            if (res.msg == 'success') {
+                //跳转
+                location.reload();
+            }
+        },'json');
+    }
+
+    function addOne(id){
+        $.get('home/buycar/addOne',{id:id},function(res){
+            if (res.msg == 'success') {
+                //跳转
+                location.reload();
+            }
+        },'json');
+    }
+
+    function des(obj){
+        $('#fade').css('display','none');
+        $('#MyDiv').css('display','none');
+
+        let id = $('#cur_id').val();
+        $.get('home/buycar/des',{id:id},function(res){
+            // // alert(id);
+            if (res.msg == 'success') {
+                //删除成功
+                // alert(res.info);
+                //跳转
+                location.reload();
+            }
+        },'json');
+    }
+    function efg(id){
+        ShowDiv('MyDiv','fade');
+        $('#cur_id').val(id);
     }
 </script>
 

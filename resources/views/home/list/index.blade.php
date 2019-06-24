@@ -16,7 +16,9 @@
         @elseif(!empty($cate_three_id))
         <span class="fl">全部 ><a href="/list?cate_two_id={{ $data_goods[0]->goodscate_two->id }}"> {{ $data_goods[0]->goodscate_two->cname }}</a> ><a href="/list?cate_three_id={{ $data_goods[0]->goodscate_three->id }}">{{$data_goods[0]->goodscate_three->cname }}</a></span>
         @else(!empty($search))
+        @if(!empty($data_goods))
         <span class="fl">全部 ><a href="/list?cate_three_id={{ $data_goods[0]->goodscate_three->id }}">{{ $data_goods[0]->goodscate_three->cname }}</a></span>  
+        @endif
         @endif
     </div>
     <!--Begin 筛选条件 Begin-->
@@ -79,6 +81,7 @@
             <div class="list_c">
                 
                 <ul class="cate_list">
+                    @if(!empty($data_goods))
                     @foreach($data_goods as $k=>$v)
                     <li>
                         <div class="img"><a href="/detail?gid={{$v->id}}"><img src="{{ $v->pic }}" width="210" height="185" /></a></div>
@@ -101,6 +104,11 @@
                         @endif
                     </li>
                     @endforeach
+                    @else
+                        <li style="width: 960px;height: 400px;">
+                            <p class="text" style="text-align: center;font-size: 20px;font-weight: 800;">没有搜索到 &nbsp;&nbsp; "{{ $search }}" &nbsp;&nbsp; 相关的商品</p>
+                        </li>
+                    @endif
                 </ul>
                 
                 <div class="pages">

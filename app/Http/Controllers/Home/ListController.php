@@ -82,9 +82,12 @@ class ListController extends Controller
             foreach ($gid as $key => $value) {
                 $gids[] = $value->gid;
             }
+            if(empty($gids)){
+                return view('home.list.index',['data_goods'=>null,'search'=>$search]);
+            }
 
             $data_goods = Goods::whereIn('id',$gids)->paginate(42);
-        
+            
         }
 
         // dd($data_goods);

@@ -51,16 +51,25 @@ Route::resource('detail','Home\DetailController');
 
 // 显示 前台 购物车 提交 订单成功 页面
 Route::get('/home/buycar/paymoney','Home\BuycarController@paymoney');
-// 购物车 商品 +1
+// 购物车 商品 +1 (未登录用户)
 Route::get('/home/buycar/addNum','Home\BuycarController@addNum');
-// 购物车 商品 -1
+// 购物车 商品 -1 (未登录用户)
 Route::get('/home/buycar/descNum','Home\BuycarController@descNum');
-// 购物车 商品 删除
+// 购物车 商品 删除 (未登录用户)
 Route::get('/home/buycar/del','Home\BuycarController@del');
-// 添加商品到购物车
+// 添加商品到购物车 (未登录用户)
 Route::get('home/buycar/add','Home\BuycarController@add');
 // 商品 结算页
 Route::get('home/buycar/account','Home\BuycarController@account');
+
+// 购物车 商品 +1 (登录用户)
+Route::get('/home/buycar/addOne','Home\BuycarController@addOne');
+// 购物车 商品 -1 (登录用户)
+Route::get('/home/buycar/descOne','Home\BuycarController@descOne');
+// 购物车 商品 删除 (登录用户)
+Route::get('/home/buycar/des','Home\BuycarController@des');
+// 确认订单 商品 删除 (登录用户)
+Route::get('/home/buycar/remove','Home\BuycarController@remove');
 
 // 显示 前台 购物车 详情页面
 Route::resource('buycar','Home\BuycarController');

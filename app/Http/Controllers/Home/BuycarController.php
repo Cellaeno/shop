@@ -31,26 +31,22 @@ class BuycarController extends Controller
         // }
 
         // dd($data);
-        
 
-        // 登录用户计算 加入购物车的 商品总数
         // // 未登录用户计算 加入购物车的 商品总数
         // $countCar = self::countCar();
         // dump($countCar);
         if (!empty(session('home_userInfo'))) {
-            // dd('qqq');
             // 登录用户 进入购物车
             $uid = session('home_userInfo')->id;
             $datas = Cars::where('uid',$uid)->get();
-            // dd($datas);
-            // 
             // 获取商品
-            // $data =  Goods::select('id','title','price','pic')->where('id',$id)->first();
             foreach ($datas as $key => $value) {
                 $datas[$key]->xiaoji = $value->car_goods->price * $value->num;
             }
+            // 计算商品总价
+            $Count = self::Count();
             // dd($datas);
-            return view('home.buycar.index',['datas'=>$datas]);
+            return view('home.buycar.index',['datas'=>$datas,'Count'=>$Count]);
         }
         
         // dd($datas);
@@ -187,7 +183,35 @@ class BuycarController extends Controller
      */
     public function edit($id)
     {
-        return view('home.buycar.showaccount');
+        // 获取用户订单里的商品 
+        $data_order = Cars::where('uid',$id)->get();
+        // 获取商品 小计
+        foreach ($data_order as $key => $value) {
+            $data_order[$key]->xiaoji = $value->car_goods->price * $value->num;
+        }
+
+        // 计算商品总价
+        $Count = self::Count();
+        // dd($data_order);
+        // dd($id);
+        return view('home.buycar.showaccount',['data_order'=>$data_order,'Count'=>$Count]);
+    }
+    /**
+     * 订单的 商品 删除
+     *
+     */
+    public function remove(Request $request)
+    {
+        $id = $request->input('id',0);
+        $res = DB::table('cars')->where('id',$id)->delete();
+
+        if ($res) {
+            echo json_encode(['msg'=>'success','info'=>'删除成功']);
+            exit;
+        } else {
+            echo json_encode(['msg'=>'erro','info'=>'删除失败']);
+            exit;
+        }     
     }
     /**
      * 添加商品到购物车 (登录的用户)
@@ -214,30 +238,99 @@ class BuycarController extends Controller
             $res = $cars->save();
             if ($res) {
                 return redirect('/buycar')->with('success','加入购物车成功');
+                exit;
             } else {
                 return back()->with('error','添加失败');
+                exit;
             }
     }
-
     /**
-     * 
+     * 计算 商品总价 (登录的用户)
      */
-    public function update(Request $request, $id)
+    public static function Count()
     {
-        //
+        // 登录用户计算 加入购物车的 商品总数
+        $uid = session('home_userInfo')->id;
+        $data_goods = Cars::where('uid',$uid)->get();
+        $Count = 0;
+        foreach ($data_goods as $key => $value) {
+            // dd($value->car_goods);
+            $Count += $value->car_goods->price * $value->num;
+        }
+        return $Count;
     }
-
     /**
-     * Remove the specified resource from storage.
+     * 购物车的 商品 -1 (登录用户)
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public static function descOne(Request $request)
     {
-        //
-    }
+        $uid = session('home_userInfo')->id;
+        $gid = $request->input('id');
+        $data = Cars::where('gid',$gid)->first();
+        $n = $data->num-1;
+        if ($n<=1) {
+            $data->num = 1;
+        } else {
+            $data->num = $n;
+        }
+            $data->uid = $uid;
+            $data->gid = $gid;
+            $res = $data->save();
 
+        if ($res) {
+            echo json_encode(['msg'=>'success','info'=>'删除成功']);
+            exit;
+        } else {
+            echo json_encode(['msg'=>'erro','info'=>'删除成功']);
+            exit;
+        }       
+    }
+    /**
+     * 购物车的 商品 +1 (登录用户)
+     *
+     */
+    public static function addOne(Request $request)
+    {
+        $uid = session('home_userInfo')->id;
+        $gid = $request->input('id');
+        $data = Cars::where('gid',$gid)->first();
+        $n = $data->num+1;
+        if (empty($data)) {
+            $data = new Cars;
+            $data->num = 1;
+        } else {
+            $data->num = $n;
+        }
+            $data->uid = $uid;
+            $data->gid = $gid;
+            $res = $data->save();
+
+        if ($res) {
+            echo json_encode(['msg'=>'success','info'=>'删除成功']);
+            exit;
+        } else {
+            echo json_encode(['msg'=>'erro','info'=>'删除成功']);
+            exit;
+        }      
+    }
+    /**
+     * 购物车的 商品 删除 (登录用户)
+     *
+     */
+    public static function des(Request $request)
+    {
+        $id = $request->input('id',0);
+        $res = DB::table('cars')->where('id',$id)->delete();
+
+        if ($res) {
+            echo json_encode(['msg'=>'success','info'=>'删除成功']);
+            exit;
+        } else {
+            echo json_encode(['msg'=>'erro','info'=>'删除失败']);
+            exit;
+        }      
+    }
      /**
      * 显示 提交 订单成功页面
      *
