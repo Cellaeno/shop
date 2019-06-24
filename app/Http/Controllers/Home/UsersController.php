@@ -37,6 +37,7 @@ class UsersController extends Controller
         $data = Users::find($id);
         return view('home.user.users_info',['data'=>$data]);
     }
+	
     /**
      * 保存 用户基本信息页面 
      *
@@ -63,6 +64,7 @@ class UsersController extends Controller
             echo json_encode(['msg'=>'danger','info'=>'非法操作,请重新进入修改页面']);
             exit;
         }
+		
         $user->uname = $uname;
         $user->token = str_random(50);
         $res1 = $user->save();
@@ -180,7 +182,13 @@ class UsersController extends Controller
     {
         //
     }
-
+	
+	/**
+     * [激活邮箱]
+     * @param  [type] $id    [用户id]
+     * @param  [type] $token [验证信息]
+     * @return [type]        [description]
+     */
     public function email($id,$token)
     {
         $user = Users::find($id);

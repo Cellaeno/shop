@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Addresses extends Model
 {
-    //
+	// 配置表名
     public $table = 'addresses';
 
     // 配置用户表属于关系
@@ -14,4 +14,5 @@ class Addresses extends Model
     {
         return $this->belongsTo('App\Models\Users','id');
     }
+
 }
